@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="../static/css/table.css" />
+<script type="text/javascript" src="../static/js/Jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/tableop.js"></script>
+<title>Send</title>
+<style type="text/css">
+* {
+	/*margin: 0 auto;*/
+	padding: 0;
+}
+.imagetable{
+	width: 100%;
+	/*margin: 0 auto ;*/
+}
+body{
+	background:aquamarine;
+}
+.box{
+	width: 80%;
+	display: flex;
+	justify-content: space-around;
+	border:2px solid black;
+	text-align: center;
+	margin:auto;
+	/*justify-content: flex-start;*/
+    }
+.full{
+	width:40px;
+	height:40px;
+	background-color:darkgray;
+	border:1px solid black;
+    }
+.empty{
+	width:40px;
+	height:40px;
+	background-color:greenyellow;
+	border:1px solid black;
+    }
+
+</style>
+</head>
+<body >
+	<h1 style="text-align: center;">数据帧实时状态表</h1>
+	<center><a style="font-size: x-small;" href="/">点我可以重启服务哦！</a></center>
+	<div id="0">
+	<div id="1" style="float: left;text-align: center;width: 50%;left: 0;">
+		<a style="font-size: larger;color: black">send</a>
+		<div class="box" id="send"></div>
+	<table class="imagetable" id="tab" style="text-align: center;">
+	</table>
+	</div>
+
+	<div id="2" style="float: right;right: 0;width: 50%;text-align: center;">
+		<a style="font-size: larger;text-align: center;color: black">receieve</a>
+		<div class="box" id="recv"></div>
+	<table class="imagetable" id="tab1">
+	</table>
+		</div>
+
+	<script type="text/javascript">
+		$(function (){
+			var time=500;
+    		var interval;
+    		var interval1;
+
+    		function runsend(){
+    			interval=setInterval(funwindows,time);
+    			interval1=setInterval(funframes,time);
+    		}
+			function funwindows() {
+				$.ajax({
+					url: "http://127.0.0.1:8080/api",
+					type: "POST",
+                    data: "window",
+					dataType: "json",
+					cache: false,
+					success: function (data) {
+						var msg = "";
+						for (var i = 0; i < data.send.length; i++) {
+							msg += '<div class="'+data.send[i].status+'"></div>';
+						}
+						$("#send").html(msg);
+					},
+					error: function () {
+						// alert("Somethings maybe error! Please restart the server!");
+					 }
+				});
+			};
+    		function funframes() {
+				$.ajax({
+					url: "http://127.0.0.1:8080/api",
+					type: "POST",
+                    data: "frame",
+					dataType: "json",
+					cache: false,
+					success: function (data) {
+						var msg3 = "";
+						msg3 += "<tr>" + "<th>" + "Time" + "</th>" + "<th>"
+								+ "sended_id" + "<th>" + "state" +"</tr>";
+						for (var i = 0; i < data.frame.length; i++) {//循环json对象，拼接tr,td的html
+							msg3 += "<tr>";
+							msg3 += "<td>" + data.frame[i].time + "</td>";
+							msg3 += "<td>" + data.frame[i].id + "</td>";
+							msg3 += "<td>" + data.frame[i].state + "</td>";
+							msg3 += "</tr>";
+						}
+						$("#tab").html(msg3);
+					},
+					error: function () {
+						// alert("Somethings maybe error! Please restart the server!");
+					 }
+				});
+			};
+
+    		runsend();
+		});
+
+		$(function (){
+			var time=500;
+    		var interval;
+			var interval1;
+    		function run(){
+    			interval=setInterval(funwindowr,time);
+    			interval1=setInterval(funframer,time);
+    		}
+		function funwindowr() {
+				$.ajax({
+					url: "http://localhost:8081/api",
+					type: "POST",
+                    data: "window",
+					dataType: "json",
+					cache: false,
+					success: function (data) {
+						var msg1 = "";
+						for (var i = 0; i < data.recv.length; i++) {
+							msg1 += '<div class="'+data.recv[i].status+'"></div>';
+						}
+						$("#recv").html(msg1);
+					},
+					error: function (data,type,err) {
+						// console.log(data+type+err);
+						// alert("Somethings maybe error! Please restart the server!");
+					 }
+				});
+			};
+    		function funframer() {
+				$.ajax({
+					url: "http://localhost:8081/api",
+					type: "POST",
+                    data: "frame",
+					dataType: "json",
+					cache: false,
+					success: function (data) {
+						var msg4 = "";
+						msg4 += "<tr>" + "<th>" + "Time" + "</th>" + "<th>"
+								+ "recved_id" + "<th>" + "state" +"</tr>";
+						for (var i = 0; i < data.frame.length; i++) {//循环json对象，拼接tr,td的html
+							msg4 += "<tr>";
+							msg4 += "<td>" + data.frame[i].time + "</td>";
+							msg4 += "<td>" + data.frame[i].id + "</td>";
+							msg4 += "<td>" + data.frame[i].state + "</td>";
+							msg4 += "</tr>";
+						}
+						$("#tab1").html(msg4);
+					},
+					error: function () {
+						// alert("Somethings maybe error! Please restart the server!");
+					 }
+				});
+			};
+    		run();
+		});
+	</script>
+<!--
+	<script type="text/javascript">
+		$(function (){
+			var time=500;
+    		var interval;
+
+    		function run1(){
+    			interval=setInterval(fun1,time);
+    		}
+			function fun1() {
+				$.ajax({
+					url: "../static/data/send.json",
+					type: "GET",
+					dataType: "json",
+					cache: false,
+
+					success: function (data) {
+						var msg3 = "";
+						msg3 += "<tr>" + "<th>" + "Time" + "</th>" + "<th>"
+								+ "sended_id" + "<th>" + "state" +"</tr>";
+						for (var i = 0; i < data.send.length; i++) {//循环json对象，拼接tr,td的html
+							msg3 += "<tr>";
+							msg3 += "<td>" + data.send[i].time + "</td>";
+							msg3 += "<td>" + data.send[i].id + "</td>";
+							msg3 += "<td>" + data.send[i].state + "</td>";
+							msg3 += "</tr>";
+						};
+						$("#tab").html(msg3);
+						var msg4 = "";
+						msg4 += "<tr>" + "<th>" + "Time" + "</th>" + "<th>"
+								+ "recved_id" + "<th>" + "state" +"</tr>";
+						for (var i = 0; i < data.recv.length; i++) {//循环json对象，拼接tr,td的html
+							msg4 += "<tr>";
+							msg4 += "<td>" + data.recv[i].time + "</td>";
+							msg4 += "<td>" + data.recv[i].id + "</td>";
+							msg4 += "<td>" + data.recv[i].state + "</td>";
+							msg4 += "</tr>";
+						}
+						$("#tab1").html(msg4);},
+					error: function() {
+						// alert("Somethings maybe error! Please restart the server!");
+					}
+				});
+
+			};
+    		run1();
+		});
+	</script>
+
+
+		<script type="text/javascript">
+		$(function (){
+			var time=500;
+    		var interval;
+
+    		function run2(){
+    			interval=setInterval(fun2,time);
+    		}
+			function fun2() {
+				$.ajax({
+					url: "../static/data/window.json",
+					type: "GET",
+					dataType: "json",
+					cache: false,
+					success: function (data) {
+						var msg0 = "";
+						for (var i = 0; i < data.sendwindow.length; i++) {
+							msg0 += '<div class="'+data.sendwindow[i].status+'"></div>';
+						}
+						$("#send").html(msg0);
+						var msg1="";
+						for (var i=0;i<data.sendwindow.length;i++){
+						    msg1+='<div class="'+data.recvwindow[i].status+'"></div>';
+                        }
+						$("#recv").html(msg1);
+					},
+					error: function () {
+						// alert("Somethings maybe error! Please restart the server!");
+					 }
+				});
+			};
+    		run2();
+		});
+	</script>
+-->
+	</div>
+</body>
+</html>

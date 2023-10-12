@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <script type="text/javascript" src="../static/js/Jquery.min.js"></script>
+    <title>test</title>
+</head>
+<body>
+<div id="window">
+</div>
+<div id="frame"></div>
+
+<script type="text/javascript">
+<!--		ajax定时请求数据，得到json文件-->
+		$(function (){
+			var time=500;
+    		var interval;
+
+    		function run2(){
+    			interval=setInterval(funwindow,time);
+    			interval=setInterval(funframe,time);
+    		}
+			function funwindow() {
+				$.ajax({
+					url: "http://127.0.0.1:80/window",
+					type: "POST",
+                    data: "window",
+					dataType: "json",
+					cache: false,
+					success: function (data) {
+						var msg = "";
+						for (var i = 0; i < data.send.length; i++) {
+							msg += '<a>'+data.send[i]+'</a>';
+						}
+						$("#window").html(msg);
+					},
+					error: function () {
+						alert("Somethings maybe error! Please restart the server!");
+					 }
+				});
+			};
+    		function funframe() {
+				$.ajax({
+					url: "http://127.0.0.1:80/window",
+					type: "POST",
+                    data: "frame",
+					dataType: "json",
+					cache: false,
+					success: function (data) {
+						var msg = "";
+						for (var i = 0; i < data.frame.length; i++) {
+							msg += '<a>'+data.frame[i]+'</a>';
+						}
+						$("#frame").html(msg);
+					},
+					error: function () {
+						alert("Somethings maybe error! Please restart the server!");
+					 }
+				});
+			};
+    		run2();
+		});
+	</script>
+</body>
+</html>

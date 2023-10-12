@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="../static/js/Jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/tableop.js"></script>
+    <title>test</title>
+<style>
+    body{
+        background-color: aliceblue;
+    /*background: linear-gradient(to top, #007adf 0%, #00ecbc 100%);*/
+    }
+    .box{
+        width: 400px;
+        display: flex;
+        justify-content: space-around;
+        border:2px solid black;
+        /*justify-content: flex-start;*/
+    }
+    .full{
+        width:40px;
+        height:40px;
+        background-color:darkgray;
+        border:1px solid black;
+    }
+    .empty{
+        width:40px;
+        height:40px;
+        background-color:greenyellow;
+        border:1px solid black;
+    }
+</style>
+</head>
+
+<body>
+<div>
+    <div class="box" style="float: left" id="send"></div>
+    <div class="box" style="float:right" id="recv"></div>
+</div>
+
+<script type="text/javascript">
+<!--		ajax定时请求数据，得到json文件-->
+		$(function (){
+			var time=100;
+    		var interval;
+
+    		function run2(){
+    			interval=setInterval(fun2,time);
+    		}
+			function fun2() {
+				$.ajax({
+					url: "../static/data/window.json",
+					type: "GET",
+					dataType: "json",
+					cache: false,
+					success: function (data) {
+						var msg = "";
+						for (var i = 0; i < data.sendwindow.length; i++) {
+							msg += '<div class="'+data.sendwindow[i].status+'"></div>';
+						}
+						$("#send").html(msg);
+						var msg="";
+						for (var i=0;i<data.sendwindow.length;i++){
+						    msg+='<div class="'+data.recvwindow[i].status+'"></div>';
+                        }
+						$("#recv").html(msg);
+					},
+					error: function () {
+						alert("Somethings maybe error! Please restart the server!");
+					 }
+				});
+			};
+    		run2();
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+ People need homes: children assume their parents’ place as home; boarders call school ‘home’ on weekdays; married couples work together to build new homes; and travelers … have no place to call ‘home’, at least for a few nights.
+
+So how about people who have to travel for extended periods of time? Don’t they have the right to a home? Of course they do.
+
+Some regular travelers take their own belongings: like bed sheets, pillowcases and family photos to make them feel like home no matter where they are; some stay for long periods in the same hotel and as a result become very familiar with service and attendants; others may simply put some flowers by the hotel window to make things more homely. Furthermore, driving a camping car during one’s travels and sleeping in the vehicle at night is just like home – only mobile!
+
+And how about maintaining relationships while in transit? Some keep contact with their friends via internet; some send letters and postcards, or even photos; others may just call and say hi, just to let their friends know that they’re still alive and well. People find ways to keep in touch. Making friends on the way helps travelers feel more or less at home. Backpackers in youth hostels may become very good friends, even closer than siblings.
+
+Nowadays, fewer people are working in their local towns, so how do they develop a sense of belonging? Whenever we step out of our local boundaries, there is always another ‘home’ waiting to be found. Wherever we are, with just a little bit of effort and imagination, we can make the place we stay “home”.
+ What I Have Lived For
+
+Bertrand Russell
+
+Three passions, simple but overwhelmingly strong, have governed my life: the longing for love, the search for knowledge, and unbearable pity for the suffering of mankind. These passions, like great winds, have blown me hither and thither, in a wayward course, over a deep ocean of anguish, reaching to the verge of despair.
+
+I have sought love, first, because it brings ecstasy --- ecstasy so great that I would have sacrificed all the rest of life for a few hours of this joy. I have sought it, next, because it relieves loneliness --- that terrible loneliness in which one shivering consciousness looks over the rim of the world into cold unfathomable lifeless abyss. I have sought it, finally, because in the union of love I have seen, in a mystic miniature, the prefiguring vision of the heaven that saints and poets have imagined. This is what I sought, and though it might seem too good for human life, this is what --- at last --- I have found.
+
+With equal passion I have sought knowledge. I have wished to understand the hearts of men, I have wished to know why the stars shine. And I have tried to apprehend the Pythagorean power by which number holds away above the flux. A little of this, but not much, I have achieved.
+
+Love and knowledge, so far as they were possible, led upward toward the heavens. But always pity brought me back to earth. Echoes of cries of pain reverberated in my heart. Children in famine, victims tortured by oppressors, helpless old people a hated burden to their sons, and the whole world of loneliness, poverty, and pain make a mockery of what human life should be. I long to alleviate the evil, but I cannot, and I too suffer.
+
+This has been my life. I have found it worth living, and I would gladly live it again if the chance were offered to me.
+2019
+Problem 1. Questions from all over.
+a. Error correcting codes are used to correct random transmission errors. When combining
+encryption and an error correcting code would you encrypt and then apply the error
+correcting code or vice versa? Encryption here refers to authenticated encryption, such
+as encrypt then MAC. Briefly justify your answer. Note that error correction is not a
+security mechanism so that the composed system need not provide ciphertext integrity.
+b. Suppose an attacker steals the long-term secret TLS 1.3 key of a banking web site.
+i. Can the attacker act as a passive eavesdropper on future HTTPS connections to that
+banking web site?
+ii. Can the attacker impersonate the banking web sites to bank customers?
+c. In class we showed how to instantiate the ElGamal public key system with one of two
+groups: (1) the group Z∗p1 for some prime p1, and (2) the group of points of an elliptic
+curve E(Fp2 ) for some prime p2. Why is it that p1 must be at least 2048 bits, but p2 need
+only be 256 bits, to obtain comparable levels of security?
+Problem 2. Committing encryption.
+A common mistake is to assume that encryption commits the encryptor to the encrypted
+message. Let (E, D) be a cipher defined over (K,M,C). Suppose Alice chooses some k ∈
+K and m ∈ M and publishes c := E(k, m). This ciphertext c is then stored in a system that
+prevents any modification to c. Later, Alice is asked to decrypt this c by revealing her key
+k. We say that the encryption scheme is committing if Alice cannot produce a k 0 ∈ K
+such that D(k 0 , c) = m0 where m0 6= m and m0 6= reject.
+a. Give a complete game based definition for committing encryption. Your game need only
+capture the commitment aspect of the scheme, not confidentiality. Hint: in your game,
+the challenger does nothing, and the attacker should output two keys k and k 0 , along
+with some other data.
+b. Let CTR denote counter mode encryption with a random IV, with key space Ke. Let (S, V )
+be a secure MAC with key space Km. Let (E0 , D0 ) be the derived CTR-then-MAC cipher
+whose key space is Ke ×Km. We know that (E0 , D0 ) provides authenticated encryption.
+Show that (E0 , D0 ) is not a committing encryption scheme.
+c. Let’s show that any cipher can be made to be committing. Recall that in homework #3
+we defined the concept of a commitment scheme. Such a scheme has a commitment
+algorithm commit : K×R → C(com) used to commit to a key k ∈ K using randomness r
+←R R. The scheme must be hiding and binding. Show that any authenticated encryption
+cipher (E, D) defined over (K,M, C) can be converted into a committing encryption scheme
+(E0 , D0 ) defined over some (K0 ,M, C 0 ) by using a commitment scheme. Your answer
+should describe algorithms E0 and D0 as well as the key space K0 and ciphertext space C
+0. Briefly explain why your (E0 , D0 ) is committing and provides authenticated encryption.
+d. We can extend our discussion of committing encryption to public-key encryption. The
+only modification to your game based definition from part (a) is that the adversary must
+also output a single public key pk along with the ciphertext c, and the released secret keys
+must be compatible with this pk. Show that ElGamal encryption is a committing
+encryption scheme.
+Problem 3. ElGamal tricks.
+Bob’s corporate mail server publishes a public-key pkbob so that all incoming emails to
+Bob are encrypted under pkbob. When Bob goes on vacation he instructs the company’s
+mail server to forward all his incoming email to his colleague Alice. Alice’s public key is
+pkalice. The mail server needs a way to translate an email encrypted under public-key
+pkbob into an email encrypted under public-key pkalice. This would be easy if the mail
+server had skbob, but then the mail server could read all of Bob’s incoming email, which
+is undesirable. Let G be a group of prime order q with generator g ∈ G. Consider a minor
+variation of the ElGamal encryption scheme from lecture where encryption using a public
+key pk := u = g α ∈ G works as follows:
+Here Esym is the encryption algorithm of a symmetric cipher with key space Ksym, and H is a
+hash function H : G → Ksym.
+Suppose that pkbob and pkalice are public keys for this scheme with corresponding secret
+keys skbob = α ∈ Zq and skalice = α 0 ∈ Zq. To enable private translation of ciphertexts
+from pkbob to pkalice, Alice and Bob get together to compute τ := α/α0 ∈ Zq. They give τ
+to the mail server.
+a. Explain how the mail server uses τ to translate a ciphertext c ←R E(pkbob, m) to a
+ciphertext c 0 for pkalice for the same message m. Justify your answer.
+b. Show that τ can also be used to translate in the other direction. That is, if c ←R E(pkalice,
+m) then the mail server can construct a ciphertext c 0 for pkbob for the same message m.
+Note that this is an unintended consequence that Alice did not want. It is not difficult to
+modify the scheme to prevent this unintended feature, but we will not do that here.
+c. Show that if the mail server could use τ to decrypt messages for Bob, then this would lead
+to a total break of this ElGamal encryption scheme. That is, suppose there is an efficient
+adversary A that given
+d. When Bob comes back from vacation, what should he do to make sure that Alice can no
+longer read his emails?
+Problem 4. Attacks on CBC.
+a. In class we discussed the ECBC (encrypted CBC) MAC for messages in X ≤L where X = {0,
+1} n . Recall that RawCBC is the same as ECBC, but without the very last encryption step.
+We showed that RawCBC is an insecure MAC for variable length messages. Here we show
+a more devastating attack on RawCBC. Let m1 and m2 be two multi-block messages.
+Show that by asking the signer for the MAC tag on m1 and for the MAC tag on one
+additional multi-block message m0 2 of the same length as m2, the attacker can obtain
+the MAC tag on m = m1 k m2, the concatenation of m1 and m2.
+b. Let’s see a real-world attack on CBC encryption with a predictable IV. Suppose Bob uses
+AES-CBC encryption with key k to encrypt blocks on disk, where each block is 4096 bytes
+long (4KB), the default block size for Linux. Disk block number i is CBC encrypted with key
+k and using an IV equal to the binary representation of i. This ensures that if two blocks
+on disk hold the same data, they result in different ciphertexts. Note that there is no need
+to store the IV with the ciphertext because the IV is derived from the block number.
+Moreover, if a single file spans multiple disk blocks, then each disk block is AES-CBC
+encrypted on its own. All disk blocks are encrypted using the same secret key k. Suppose
+an authoritarian regime publishes a subversive video m and Bob stores m encrypted on
+his disk. Later, Bob’s machine is seized and the authoritarian regime wants to test if Bob’s
+disk contains an encrypted copy of m (if so, Bob may have some explaining to do). If this
+were possible, it would be a serious violation of semantic security. Show that the regime
+can create a multi-block video m for which it is easy to test if the encrypted m is stored
+on Bob’s disk. You do not know the block number where m will be stored on Bob’s disk.
+However, you may assume that m is block-aligned, that is, the first byte 7 of m is stored
+as the first byte of some block on disk, byte number 4097 of m is the first byte of the next
+consecutive block, etc. If m is stored on Bob’s disk then your test should always say “yes”.
+For simplicity, you may assume that all other content stored on Bob’s encrypted disk is
+random bytes. Hint: Try to design a message m that when encrypted as described above
+results in a sequence of encrypted disk blocks, each 4096 bytes long, where some two
+consecutive encrypted blocks begin with the same sequence of 16 bytes. It may help to
+first answer the question assuming the first encrypted block of the message m is stored
+in block number i, where i is an (unknown) even number. Then generalize your answer to
+an arbitrary (unknown) i. Note: in practice, disk encryption systems that use AES-CBC, set
+the IV for block i to be AES(k 0 , i), where k 0 is an independent secret key. This prevents
+your attack.
+Problem 5. Group key exchange.
+n parties A1, . . . , An want to setup a group secret key that they can use for encrypted
+group messaging. For simplicity, let’s assume n is a power of two. They have at their
+disposal a public bulletin board (a cloud server) that they can all post messages to and
+that will be visible to all of them, as well as to the rest of the world. Our goal here is to
+design a group key exchange that is secure against a passive eavesdropper.
+a. Let G be a group of prime order q with generator g ∈ G. Let H : G → Zq be a random
+hash function. Your goal is to design a protocol based on two-party (anonymous) DiffieHellman that runs in at most log2 n rounds. In each round every party posts at most one
+group element in G to the bulletin board and reads at most one group element from the
+bulletin board. The parties can only send messages to the bulletin board; no peer-topeer communication is allowed. At the end of the protocol, after log2 n rounds, all parties
+obtain the same secret key and there are at most 2n group elements on the bulletin board.
+You may assume that the parties know each other’s identities and can order themselves
+lexicographically by identity. Hint: think of an n-leaf binary tree where each leaf
+corresponds to one party.
+b. Suppose one of the n parties has a malfunctioning random number generator – whenever
+that party needs to sample a random number in Zq, its random number generator always
+returns 5 ∈ Zq. Show that this will sink the entire protocol from part (a), even if all the
+other participants have well functioning random number generators. Specifically, show
+that an eavesdropper will learn the group secret key.
+c. Is it possible to design a group key exchange protocol among n parties that is secure
+against passive eavesdropping even if at most one of the participants suffers from the
+problem in part (b)? Justify your answer.
+
+新华社北京12月5日电　题：步履坚定，共绘高质量发展新篇章——各地贯彻党的十九届六中全会精神纪实
+
+新华社记者
+
+发展，是解决一切问题的总钥匙。
+
+党的十九届六中全会审议通过《中共中央关于党的百年奋斗重大成就和历史经验的决议》强调，必须实现创新成为第一动力、协调成为内生特点、绿色成为普遍形态、开放成为必由之路、共享成为根本目的的高质量发展。
+
+近日新华社记者奔赴多地，到企业车间、基层一线、群众当中，亲历贯彻全会精神的火热气象，感受落实新发展理念蔚然成风。
+
+提质增效，跃上发展新台阶
+
+走进济钢集团，黑色钢铁已不见踪影。36岁的技术人员陈书超身着白大褂，正操作数控机床加工直径几微米的精密零部件。
+
+对于转型发展，他有着切身收获：“企业从‘靠钢吃饭’到‘无钢发展’，我的工作也从铸造‘大黑粗’变成加工‘高精尖’，环境好了，收入也高了。”
+
+2017年，有着60年历史的济钢关停全部钢铁生产线。如今，济钢度过转型阵痛，向新材料、高端装备制造转型。2021年，集团产值预计和退出钢铁产能前相当，但能耗、大气污染物排放均只有以前的“零头”。
+
+“要努力提升技能，适应企业转型的新需要，以实际行动响应全会关于推动高质量发展的号召。”陈书超说。
+
+12月的浙江安吉，依旧满目青翠。“保护生态环境就是保护生产力，改善生态环境就是发展生产力，我们深有体会。”浙江省湖州市委常委、安吉县委书记杨卫东说。
+
+“绿水青山就是金山银山。”刚刚从山川乡大里村调研回来的他，掰着手指给记者盘算，“那里旅游资源丰富、客流充足，要把闲置办公楼等资源都盘活用好，同时想办法带动村民参与乡村旅游经营，壮大集体经济、为村民增收。”
+
+从北到南、由西至东，各地干部群众高度认同全会总结的宝贵经验，将贯彻新发展理念作为自觉行动。
+
+冬日南国，天蓝海碧。记者登上海南洋浦经济开发区国投洋浦港码头，近5万吨进口菜籽原料经检疫合格后，被装上一辆辆卡车，运往洋浦保税港区的澳斯卡粮油加工厂。
+
+“我们既是开放战略的践行者，更是受益者，从自贸港加工增值政策获得巨大商机。”海南澳斯卡国际粮油有限公司总经理张慧介绍，自今年7月投产以来，公司已完成加工增值业务95票，免征关税约1758万元。
+
+“全会提出全面深化改革开放，我们将依托国内超大规模市场优势，抢抓市场机遇，以高水平开放推动高质量发展。”张慧说。
+
+改革创新，汇聚发展新动力
+
+像一个金色大吊灯，又像一个多层的旋转木马……在中国科学技术大学物理学院的实验室里，特任教授曹刚正在为提升量子计算机的算力忙碌。
+
+他所在的科研团队刚刚在半导体量子芯片研究上获得重要进展。
+
+“全会要求推进科技自立自强，作为科技工作者倍感使命光荣、责任重大。”曹刚说，量子科技是关键核心技术领域。目前团队正在积极筹划新的科研计划，力争在新阶段实现从追赶到并跑、赶超的跨越。
+
+冰天雪地的东北，沈阳鼓风机集团透平公司的智能化车间里，一台台数字化工位机有条不紊地工作，各种生产信息在显示屏上一目了然。
+
+“全会提出坚持开拓创新，对我们这样的老字号国企来说，就是要赶上时代发展的浪潮，抓住新一代信息技术和产业变革的机遇，坚持在改革中实现转型发展。”沈鼓集团董事长戴继双说。
+
+采访越深入，记者越真切地感受到，全会精神正激发大家拿出更大魄力、更加主动改革创新，推动各行各业加速转入高质量发展轨道。
+
+揉面、拌馅、印花、烤制……在新疆伊犁的霍尔果斯馕产业园里，刚出炉的馕散发着诱人的香味。“最近又有来自俄罗斯和白俄罗斯的线上订单，得抓紧赶制240万个馕。”霍尔果斯金亿国际贸易（集团）有限公司董事长于成忠仔细查看生产进度。
+
+霍尔果斯创新发展模式，通过引入金亿这样的外贸企业参与产品研发、改良种类，加快了馕产业走出国门的步伐。
+
+“‘敢为天下先，走出了前人没有走出的路’。全会总结历史经验里的这句话，将激励我们全方位拓展产业链，用小馕饼撬动大产业。”于成忠信心十足。
+
+奋发有为，共绘发展新篇章
+
+推动高质量发展是一场关系经济社会全局的深刻变革，必须持之以恒加以推进。唯有锐意进取、奋发有为，才能实现这一伟大历史目标。
+
+冬日的寒风里，胜利油田百万吨CCUS（碳捕获、利用与封存）示范工程13号站，正在进行最后的建设冲刺。工程将于年底投产，建成后每年可利用二氧化碳100万吨。
+
+将二氧化碳用于石油开采，是胜利油田在“碳中和”领域的最新技术应用，可带来经济效益和生态效益双赢。
+
+“全会提出，坚持人与自然和谐共生，这让我对二氧化碳驱油技术的推广应用有了更坚定的信心。”中国石化胜利油田注汽技术服务中心二氧化碳项目部经理屈龙涛表示。
+
+“未来之城”雄安，已进入承接北京非首都功能疏解和大规模开发建设同步推进的关键阶段。
+
+“十九届六中全会的胜利召开，是激励，更是召唤，让我们凝心聚力、倍增干劲。”雄安新区改革发展局局长于国义说，下一步将有序推进启动区和容东片区建设，把高质量发展贯穿于规划建设的全过程，打造样板工程。
+
+高质量发展是以人民为中心的发展。
+
+福建晋江，正在探路共同富裕县域示范。经历40多年发展，晋江目前培育壮大市场主体24万个，数以百万计的务工人员稳定就业。
+
+重整行装再出发，锚定目标再超越。
+
+“党的十九届六中全会通过的决议指出，坚定不移走全体人民共同富裕道路，为我们指明了方向。”泉州市委常委、晋江市委书记张文贤说，要始终把高质量发展的文章做好，激发市场主体活力，增强创业就业能力，均等化公共服务，让更多群众享受发展成果。（记者：姜琳、陈灏、闫起磊、关俏俏、徐海涛、邹明仲、岳德亮、吴茂辉、吴剑锋)
+
+12月25日0—24时，31个省（自治区、直辖市）和新疆生产建设兵团报告新增确诊病例206例。其中境外输入病例48例（上海18例，天津8例，广西5例，云南4例，陕西4例，福建3例，湖南2例，广东2例，北京1例，浙江1例），含6例由无症状感染者转为确诊病例（陕西3例，广西2例，北京1例）；本土病例158例（陕西157例，其中西安市155例、咸阳市2例；广西1例，在防城港市）。无新增死亡病例。无新增疑似病例。
+
+当日新增治愈出院病例76例，解除医学观察的密切接触者2439人，重症病例与前一日持平。
+
+境外输入现有确诊病例721例（其中重症病例3例），现有疑似病例3例。累计确诊病例10894例，累计治愈出院病例10173例，无死亡病例。
+
+截至12月25日24时，据31个省（自治区、直辖市）和新疆生产建设兵团报告，现有确诊病例2011例（其中重症病例9例），累计治愈出院病例94430例，累计死亡病例4636例，累计报告确诊病例101077例，现有疑似病例3例。累计追踪到密切接触者1406467人，尚在医学观察的密切接触者54407人。
+
+31个省（自治区、直辖市）和新疆生产建设兵团报告新增无症状感染者29例，其中境外输入28例，本土1例（在广西防城港市）；当日转为确诊病例6例（均为境外输入）；当日解除医学观察11例（境外输入8例）；尚在医学观察的无症状感染者504例（境外输入466例）。
+
+累计收到港澳台地区通报确诊病例29548例。其中，香港特别行政区12580例（出院12189例，死亡213例），澳门特别行政区77例（出院77例），台湾地区16891例（出院13742例，死亡850例）。
+
+来源 北京日报客户端
+
+记者 杨绪军
+
+流程编辑 吴越
+据央视新闻客户端消息，近日，西安一段外国人在国内核酸检测点谩骂防疫人员的视频在网上热传。据了解，该外国男子是西安一私立国际学校的外教。12月26日，该学校发表声明称，外教老师在防疫过程中的不当个人行为，严重违反学校聘任条约中所强调的“不得对国家及种族的不尊重，不得违反中国法律与规定”之条款，依照合约精神，学校严肃处理，现予以立即解除聘任合同。
+
+12月24日，有网友发布视频称，在西安一核酸检测点，一外籍男子在做核酸检测时，当众称防疫人员为“疯子”“神经病”，并朝地上吐痰。当日11时，视频发布者称，他们已收到该男子家人转达的道歉信息。其家人称，该男子汉语表达能力有限，表达情绪时用错词语，并非有意侮辱，事后已感到后悔。
+
+编辑 杨利
+
+重磅！
+
+在中央政治局会议结束两天后，12月8日至10日，一年一度的中央经济工作会议在北京举行。
+
+中共中央总书记、国家主席、中央军委主席习近平，中共中央政治局常委李克强、栗战书、汪洋、王沪宁、赵乐际、韩正出席会议。
+
+政知道注意到，今年的中央经济工作会议是党的十八大以来召开时间最早的一次。
+
+
+此前央视新闻引述专家观点指出，今年是“十四五”开局之年，明年要迎接党的二十大胜利召开，这段时间经济工作能够健康稳定发展非常重要。因此今年中央经济工作会议时间有所提前，也是可以理解的。
+
+三重压力
+
+每年的中央经济工作会议，都会对当年的经济工作作出评价，今年也不例外。
+
+这次会议，在肯定成绩的同时也分析了当前的形势。政知君注意到，这次会议首次提到了三重压力。
+
+
+2018年的中央经济工作会议强调，经济面临下行压力；2019年的中央经济工作会议强调，经济下行压力加大。
+
+2020年的经济工作会议虽未提“压力”，但在分析形势时提到，“明年世界经济形势仍然复杂严峻，复苏不稳定不平衡，疫情冲击导致的各类衍生风险不容忽视。”
+
+今年的判断是——我国经济发展面临需求收缩、供给冲击、预期转弱三重压力。世纪疫情冲击下，百年变局加速演进，外部环境更趋复杂严峻和不确定。
+
+不妨来看一组数据。
+
+今年12月6日发布的《经济蓝皮书：2022年中国经济形势分析与预测》指出，预计2021年中国经济增长8.0%，2022年中国经济增长5.3%左右。
+
+中国政策科学研究会经济政策委员会副主任徐洪才在接受采访时表示，当前世界经济下行压力比较大，中国经济也是如此，所以要遏制下滑的势头，必须要更加重视稳增长。
+
+“尤其是明年世界经济预期放缓，外部需求将会收缩，今年中国外贸20%以上增长的好日子明年可能难再现。”
+
+另外，国家发改委对外经济研究所研究室主任王海峰在接受《21世纪经济报道》采访时表示，从发展趋势看，明年新冠肺炎疫情对发展中国家的不确定影响还是很大。相比，发达国家疫苗免疫屏障基本建立，经济所受影响会进一步减弱。
+
+“今年，全球供给依旧是短缺的，对中国来说外部市场还是一个需求市场。到明年国内外经济恢复的差异性可能明显缩小，供应链错配的情况也会减轻，供需就没有那么乐观，且今年外需增长基数很高，这些变化需要重视。”
+
+如何应对压力？
+
+中央经济工作会议给出的答案有——坚定不移做好自己的事情、沉着应对重大挑战、坚持高质量发展、坚持稳中求进、加强统筹协调。
+
+多了“稳字当头”
+
+再来看“稳”。
+
+今年的会议提到，明年经济工作要“稳字当头、稳中求进”。
+
+从2011年开始，中央经济工作会议把“稳中求进”明确为经济工作总基调，此后这一表述在历次中央经济工作会议都有出现，今年则新增了“稳字当头”。在新华社的新闻稿中，“稳”字出现了25处之多。
+
+为什么2022年要“稳字当头”，“三重压力”显然是重要原因之一。
+
+“稳字当头”，“稳”的是什么？
+
+会议强调，继续做好“六稳”“六保”工作，持续改善民生，着力稳定宏观经济大盘，保持经济运行在合理区间，保持社会大局稳定，迎接党的二十大胜利召开。
+
+先看民生，就业是民生之本。
+
+2021年1-10月份，全国城镇新增就业1133万人，提前完成了全年目标任务。2022年高校毕业生规模预计1076万人，同比增加167万人，规模、增量都创历史新高，就业形势复杂严峻。
+
+会议要求，社会政策要兜住兜牢民生底线。要统筹推进经济发展和民生保障，健全常住地提供基本公共服务制度。解决好高校毕业生等青年就业问题，健全灵活就业劳动用工和社会保障政策。推进基本养老保险全国统筹。推动新的生育政策落地见效，积极应对人口老龄化。
+
+再看宏观经济，宏观经济大盘稳定的重要指标就是“保持经济运行在合理区间”。
+
+来看今年GDP数据。
+
+一季度同比增长18.3%，两年平均增长5.0%；二季度同比增长7.9%，两年平均增长5.5%；三季度同比增长4.9%，两年平均增长4.9%。
+
+今年11月，国务院总理李克强分别在专家和企业家座谈会，以及部分地方政府主要负责人座谈会上指出，我国经济出现新的下行压力。
+
+此次会议要求，各地区各部门要担负起稳定宏观经济的责任，各方面要积极推出有利于经济稳定的政策，政策发力适当靠前。
+
+首提“灵活就业”
+
+不妨再具体来分析。
+
+今年的中央经济工作会议，几大政策是关键——
+
+宏观政策要稳健有效；
+微观政策要持续激发市场主体活力；
+结构政策要着力畅通国民经济循环；
+科技政策要扎实落地；
+改革开放政策要激活发展动力；
+区域政策要增强发展的平衡性协调性；
+社会政策要兜住兜牢民生底线。
+这几项政策每一项都是重点。
+
+在这里，政知君仅拎几个点。
+
+其一，这次会议提到，适度超前开展基础设施投资。
+
+关于基础设施投资的问题，此前的会议也都有过部署。比如，2018年的提到“加大基础设施等领域补短板力度”；2019年提到“引导资金投向供需共同受益、具有乘数效应的先进制造、民生建设、基础设施短板等领域”；2020年是“加大新型基础设施投资力度”。
+
+今年的说法是，“适度超前开展”。
+
+其二，房住不炒的问题。
+
+要坚持房子是用来住的、不是用来炒的定位，加强预期引导，探索新的发展模式，坚持租购并举，加快发展长租房市场，推进保障性住房建设，支持商品房市场更好满足购房者的合理住房需求，因城施策促进房地产业良性循环和健康发展。
+
+其三，民生中的就业问题。
+
+在新华社发布的会议通稿中，“就业”一词一共出现了8处，包括“解决好高校毕业生等青年就业问题”“健全灵活就业劳动用工和社会保障政策”“要在推动高质量发展中强化就业优先导向”等。
+
+其中，“灵活就业”是首度在中央经济工作会议中被提及。
+
+几个认识
+
+另外，与往年相比，今年的经济工作会议还特别廓清了对不少重大理论和实践问题的认识，分别是：
+
+正确认识和把握实现共同富裕的战略目标和实践途径
+
+正确认识和把握资本的特性和行为规律
+
+正确认识和把握初级产品供给保障
+
+正确认识和把握防范化解重大风险
+
+正确认识和把握碳达峰碳中和
+
+每一项都值得仔细分析。
+
+比如，在实现共同富裕方面，会议提到，首先要通过全国人民共同奋斗把“蛋糕”做大做好，然后通过合理的制度安排把“蛋糕”切好分好。
+
+提到资本的特性时，会议提到，要为资本设置“红绿灯”，依法加强对资本的有效监管，防止资本野蛮生长。要支持和引导资本规范健康发展。
+
+对此，人民银行党委书记、银保监会主席郭树清说，“资本这个要素，最主要的就是永远让它在我们的社会主义市场经济这个大框下，依法依规公平竞争，加强监管，不能让它无序扩张、盲目发展，把资本的规则定好，所以我们要严格依法合规来引导”。
+
+
+在提到碳达峰碳中和时，会议提到“不可能毕其功于一役”。
+
+会议还提到，传统能源逐步退出要建立在新能源安全可靠的替代基础上。要立足以煤为主的基本国情，抓好煤炭清洁高效利用，增加新能源消纳能力，推动煤炭和新能源优化组合。
+
+要科学考核，新增可再生能源和原料用能不纳入能源消费总量控制，创造条件尽早实现能耗“双控”向碳排放总量和强度“双控”转变，加快形成减污降碳的激励约束机制，防止简单层层分解。
+
+这种种表述的背后，无不体现了一个字——稳。
+
+对干部的要求
+
+最后一点。
+
+与往年相比，今年的会议用大篇幅对各级党委和政府、各级领导干部提出了要求。
+
+不妨对比这两年的情况来看。
+
+去年的会议，对干部提出的要求包括“提高专业化能力”“增强补课充电的紧迫感”等：
+
+
+今年的会议对领导干部提出了更为细致更为全面的要求。
+
+比如，会议提到，领导经济工作必须“尊重客观实际和群众需求，必须有系统思维、科学谋划”“要加强经济学知识、科技知识学习”“坚持正确政绩观，敬畏历史、敬畏文化、敬畏生态，慎重决策、慎重用权”“坚决防止简单化、乱作为，坚决反对不担当、不作为”。
+
+
+政知君还注意到，这次会议还提到要“统筹协调”“坚持系统观念”。
+
+如何理解统筹协调？
+
+四川省委书记彭清华在接受《新闻联播》采访时说，“我们在实际工作中要坚持系统观念加强统筹谋划，注重协调推进，要注意防治顾此失彼、要防止把长期目标短期话，把系统目标碎片化，要防止在政策执行过程中搞简单化、一刀切”。
+
+
+资料 ｜ 央视 新华社 人民网等
+
+校对 | 葛冬春
+【版权声明】本文著作权归北京青年报独家所有，未经授权，不得转载。

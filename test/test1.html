@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+<body>
+
+    <div class="disc" onclick="handler()">点击区域</div>
+    <img src="../static/img/1.jpg" width="206" height="206" border="0" usemap="#Map" />
+    <map name="Map" id="Map">
+     <area shape="circle" coords="100,100,50" href="https://www.baidu.com" target="_blank" />
+    </map>
+
+<script type="text/javascript">
+      document.onclick = function(e){
+            var r = 50;  //圆的半径
+            var x1 = 500,  y1 = 500;
+            var x2 = e.clientX,
+                y2 = e.clientY;
+            var len=Math.abs(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2)));
+            if(len<=50){
+                handler()
+            }
+        },
+
+        function handler(){
+            debugger
+            alert('11')
+        }
+</script>
+</body>
+</html>
+
+<style>
+    .disc{
+        width:100px;
+        height:100px;
+        background-color:dimgray;
+        border-radius: 50%;
+        cursor: pointer;
+        position: absolute;
+        left:50px;
+        top:50px;
+        line-height: 100px;
+        text-align: center;
+        color: white;
+    }
+   </style>
